@@ -51,7 +51,7 @@ coffee/
 ## 🌟 Screenshots
 
 <!-- Add your screenshots here -->
-![Home Page Preview](images/screenshot-home.png)
+![Home Page Preview](Screenshot 2025-08-11 161630g)
 ![Menu Page Preview](screenshot-menu.png)
 
 ---
