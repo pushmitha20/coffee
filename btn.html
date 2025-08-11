@@ -1,0 +1,17 @@
+
+
+<button id="btn" onclick="update()">Change</button>
+<script>
+var botn = document.getElementById("btn");
+var colors = ["red", "blue", "yellow","brown"]; // Array of colors
+var index = 0; 
+var size = 49;// To keep track of the current color
+
+function update() {
+    botn.style.backgroundColor = colors[index]; // Set the background color
+    index = (index + 1) % colors.length;
+    size += 10; // Increase size by 10 pixels each click
+    botn.style.width = size + "px"; // Set the width
+    botn.style.height = size + "px"; // Set the height
+}
+</script>

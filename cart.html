@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My E-Library Cart</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Main container styling */
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        /* Cart section styling */
+        .cart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .cart-items {
+            flex: 2;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-summary {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            align-self: flex-start;
+        }
+
+        /* Individual cart item styling */
+        .cart-item {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            align-items: center;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 4px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .item-author {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .item-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .quantity-btn {
+            background: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .remove-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .remove-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Summary section styling */
+        .summary-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background: #219653;
+        }
+
+        /* Empty cart styling */
+        .empty-cart {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .empty-cart p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .continue-shopping {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .continue-shopping:hover {
+            background: #2980b9;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .cart-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My E-Library Cart</h1>
+        </header>
+
+        <div class="cart-container">
+            <!-- Cart Items Section -->
+            <section class="cart-items" id="cartItems">
+                <!-- Cart items will be dynamically inserted here by JavaScript -->
+                <div class="empty-cart">
+                    <p>Your cart is empty</p>
+                    <button class="continue-shopping" onclick="window.location.href='books.html'">Continue Shopping</button>
+                </div>
+            </section>
+
+            <!-- Cart Summary Section -->
+            <section class="cart-summary" id="cartSummary">
+                <h2 class="summary-title">Order Summary</h2>
+                <div class="summary-item">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax:</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="summary-item summary-total">
+                    <span>Total:</span>
+                    <span id="total">$0.00</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn" disabled>Proceed to Checkout</button>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for cart items (in a real app, this would come from a database or localStorage)
+        const sampleCartItems = [
+            {
+                id: 1,
+                title: "JavaScript: The Definitive Guide",
+                author: "David Flanagan",
+                price: 29.99,
+                image: "https://m.media-amazon.com/images/I/91hU4KtWnEL._AC_UF1000,1000_QL80_.jpg",
+                quantity: 1
+            },
+            {
+                id: 2,
+                title: "Clean Code: A Handbook of Agile Software Craftsmanship",
+                author: "Robert C. Martin",
+                price: 35.99,
+                image: "https://m.media-amazon.com/images/I/41xShlnTZTL._SX376_BO1,204,203,200_.jpg",
+                quantity: 2
+            },
+            {
+                id: 3,
+                title: "Design Patterns: Elements of Reusable Object-Oriented Software",
+                author: "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+                price: 49.99,
+                image: "https://m.media-amazon.com/images/I/51szD9HC9pL._SX395_BO1,204,203,200_.jpg",
+                quantity: 1
+            }
+        ];
+
+        // DOM elements
+        const cartItemsEl = document.getElementById('cartItems');
+        const subtotalEl = document.getElementById('subtotal');
+        const taxEl = document.getElementById('tax');
+        const totalEl = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        // Tax rate (8%)
+        const TAX_RATE = 0.08;
+
+        // Initialize the cart
+        let cart = [];
+
+        // Function to render cart items
+        function renderCart() {
+            // Clear the cart items element
+            cartItemsEl.innerHTML = '';
+
+            if (cart.length === 0) {
+                // Show empty cart message
+                cartItemsEl.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Your cart is empty</p>
+                        <button class="continue-shopping" onclick="window.location.href='books.html'">Continue Shopping</button>
+                    </div>
+                `;
+                // Disable checkout button
+                document.getElementById('checkoutBtn').disabled = true;
+                return;
+            }
+
+            // Enable checkout button
+            document.getElementById('checkoutBtn').disabled = false;
+
+            // Render each cart item
+            cart.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="item-image">
+                    <div class="item-details">
+                        <div class="item-title">${item.title}</div>
+                        <div class="item-author">${item.author}</div>
+                        <div class="item-price">$${item.price.toFixed(2)}</div>
+                    </div>
+                    <div class="item-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, parseInt(this.value))">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${item.id})">Remove</button>
+                    </div>
+                `;
+                cartItemsEl.appendChild(itemEl);
+            });
+
+            // Update summary
+            updateSummary();
+        }
+
+        // Function to update item quantity
+        function updateQuantity(itemId, newQuantity) {
+            if (newQuantity < 1) newQuantity = 1;
+            
+            const itemIndex = cart.findIndex(item => item.id === itemId);
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity = newQuantity;
+                // In a real app, you would save to localStorage here
+                renderCart();
+            }
+        }
+
+        // Function to remove an item from cart
+        function removeItem(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            // In a real app, you would save to localStorage here
+            renderCart();
+        }
+
+        // Function to update the order summary
+        function updateSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * TAX_RATE;
+            const total = subtotal + tax;
+
+            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            taxEl.textContent = `$${tax.toFixed(2)}`;
+            totalEl.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Function to initialize the cart (in a real app, you might load from localStorage)
+        function initCart() {
+            // For demo purposes, we'll use the sample data
+            cart = [...sampleCartItems];
+            renderCart();
+        }
+
+        // Initialize the cart when the page loads
+        window.onload = initCart;
+
+        // Checkout button functionality
+        document.getElementById('checkoutBtn').addEventListener('click', function() {
+            alert('Thank you for your purchase! Redirecting to checkout...');
+            // In a real app, you would redirect to a checkout page
+        });
+    </script>
+</body>
+</html>
