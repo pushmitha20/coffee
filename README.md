@@ -52,7 +52,7 @@ coffee/
 
 <!-- Add your screenshots here -->
 ![Home Page Preview](images/screenshot-home.png)
-![Menu Page Preview](images/screenshot-menu.png)
+![Menu Page Preview](screenshot-menu.png)
 
 ---
 
