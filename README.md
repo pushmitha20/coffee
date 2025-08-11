@@ -77,7 +77,7 @@ Feel free to fork the repo and submit pull requests for new features, improvemen
 ## 📬 Contact
 
 - **GitHub:** [pushmitha20](https://github.com/pushmitha20)
-- **Email:** your-email@example.com
+- **Email:** vpushmitha20@gmail.com
 
 ---
 
